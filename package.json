@@ -6,9 +6,8 @@
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0",
-    "react-router-dom": "5.0.0",
-    "react-router": "5.0.0"
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,7 +19,6 @@
     "extends": "react-app"
   },
   "resolutions": {
-    "react-router": "5.0.0",
     "react-router-dom": "5.0.0"
   },
   "browserslist": {
