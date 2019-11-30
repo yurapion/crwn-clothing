@@ -9,7 +9,7 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { ReactComponent as Logo } from "../../assets/4.3 crown.svg";
 import "./header.styles.scss";
 
-const Header = ({ currentUser, hidden }) => {
+const Header = ({ currentUser, hidden, cartItems }) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -36,7 +36,7 @@ const Header = ({ currentUser, hidden }) => {
             SIGN IN
           </Link>
         )}
-        <CartIcon />
+        <CartIcon cartItems={cartItems} />
       </div>
       {hidden ? null : <CartDropdown />}
     </div>
@@ -52,9 +52,10 @@ const Header = ({ currentUser, hidden }) => {
 //    hidden: cart.hidden
 //  });
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden, cartItems  } }) => ({
   currentUser,
-  hidden
+  hidden,
+  cartItems
 });
 
 export default connect(mapStateToProps)(Header);
