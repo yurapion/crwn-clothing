@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import "./App.css";
 
-import CheckOutPage from './pages/checkout/checkout.component';
+import CheckOutPage from "./pages/checkout/checkout.component";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
@@ -13,6 +13,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 //import userReducer from "./redux/user/user.reducer";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import { selectCollectionsForPreviewArray } from "./redux/shop/shop.selectors";
 
 class App extends React.Component {
   // constructor() {
@@ -26,6 +27,7 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    // const { setCurrentUser, collectionsArray } = this.props;
     const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -53,6 +55,8 @@ class App extends React.Component {
       } else {
         setCurrentUser(userAuth);
       }
+      // addCollectionAndDocuments('collections', collectionsArray.map(obj => (obj.title, obj.items)));
+      // addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items})));
     });
   }
 
@@ -68,7 +72,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
-            <Route exact path='/checkout' component={CheckOutPage}/>
+            <Route exact path="/checkout" component={CheckOutPage} />
             {/* <Route exact path="/signin" component={SignInAndSignUpPage} /> */}
             <Route
               exact
@@ -93,7 +97,8 @@ class App extends React.Component {
 // });
 
 const mapStateToProps = state => ({
-  currentUser: selectCurrentUser(state)
+  currentUser: selectCurrentUser(state),
+  collectionsArray: selectCollectionsForPreviewArray(state)
 });
 
 const mapDispathcToProps = dispatch => ({

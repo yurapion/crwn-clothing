@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -12,37 +12,38 @@ import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { ReactComponent as Logo } from "../../assets/4.3 crown.svg";
 import "./header.styles.scss";
 
+import {
+  HeaderContainer,
+  LogoContainerLink,
+  OprionLink,
+  OptionsContainer,
+  OptionDiv
+} from "./header.styles";
+
 const Header = ({ currentUser, hidden }) => {
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainerLink to="/">
         <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
-        </Link>
-        <Link className="option" to="/shop">
-          CONTACT
-        </Link>
+      </LogoContainerLink>
+
+      <OptionsContainer>
+        <OprionLink to="/shop">SHOP</OprionLink>
+        <OprionLink to="/shop">CONTACT</OprionLink>
         {currentUser ? (
-          <div
-            className="option"
-            onClick={() => {
-              auth.signOut();
-            }}
-          >
+          <OptionDiv as="div" onClick={() => auth.signOut()}>
             SIGN OUT
-          </div>
+          </OptionDiv>
         ) : (
-          <Link className="option" to="/signin">
+          <OprionLink className="option" to="/signin">
             SIGN IN
-          </Link>
+          </OprionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
+
       {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 
@@ -65,7 +66,7 @@ const Header = ({ currentUser, hidden }) => {
 //   hidden: selectCartHidden(state)
 // });
 
-const mapStateToProps = createStructuredSelector ({
+const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden
 });
